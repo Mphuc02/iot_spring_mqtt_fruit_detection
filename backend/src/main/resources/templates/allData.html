@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/alldata.css">
+	<link rel="stylesheet" href="/css/profile.css">
+	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/pagination.css">
+	<link rel="stylesheet" href="/icon/themify-icons/themify-icons.css">
+	<title>Kiểm soát cất lượng hoa quả</title>
+	<script src="/js/chart.min.js"></script>
+
+</head>
+<body>
+<div id="main">
+	<!--BEGIN SIDEBAR-->
+	<div class="sidebar">
+		<div class="logo">
+			<p>IoT Và Ứng Dụng</p>
+		</div>
+		<div class="line"></div>
+		<div class="sidebar-menu">
+			<ul>
+				<li class="sidebar-element">
+					<a href="/">
+						<p class="menu">Trang Chủ</p>
+					</a>
+				</li>
+
+				<li class="sidebar-element">
+					<a href="/camera">
+						<p class="menu">Đánh giá thông qua hình ảnh</p>
+					</a>
+				</li>
+
+				<li class="sidebar-element menu trangchu">
+					<a href="/all-data">
+						<p class="menu">Tất Cả Dữ Liệu</p>
+					</a>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+	<!--END SIDEBAR-->
+
+	<!--BEGIN INNERBLOCK-->
+	<div class="content-wrapper">
+		<div class="content-header">
+			<h4>Tất cả dữ liệu</h4>
+		</div>
+
+		<!-- Khối tìm kiếm -->
+		<div class="search-form">
+			<form method="get" action="">
+				<div>
+					<label for="startTime">Thời gian bắt đầu:</label>
+					<input th:value="${searchDto.getStartDate()}" name="start-date" type="text" id="startTime">
+				</div>
+
+				<div>
+					<label for="endTime">Thời gian kết thúc:</label>
+					<input th:value="${searchDto.getEndDate()}" name="end-date" type="text" id="endTime">
+				</div>
+
+				<div>
+					<label for="temperature">Nhiệt độ:</label>
+					<input th:value="${searchDto.getTemperatureValue()}" name="temperature-value"  type="text" id="temperature" style="margin-left: 28px;">
+				</div>
+
+				<div>
+					<label for="humidity">Độ ẩm:</label>
+					<input th:value="${searchDto.getHumidityValue()}" name="humidity-value" type="text" id="humidity" style="margin-left: 44px;">
+				</div>
+
+				<div>
+					<label for="mq3">Mq3:</label>
+					<input th:value="${searchDto.getMq3Value()}" name="mq3-value" type="text" id="mq3" style="margin-left: 20px;">
+				</div>
+
+                <div>
+                    <label for="mq3">Mq4:</label>
+                    <input th:value="${searchDto.getMq4Value()}" name="mq4-value" type="text" id="mq4" style="margin-left: 20px;">
+                </div>
+
+				<button type="submit">Tìm kiếm</button>
+			</form>
+		</div>
+
+
+		<table class="tb_data">
+
+			<thead>
+			<tr><th class="td-cell">STT</th>
+				<th class="td-cell">Thời gian</th>
+				<th class="td-cell">Nhiệt độ</th>
+				<th class="td-cell">Độ ẩm</th>
+				<th class="td-cell">Mq3</th>
+                <th class="td-cell">Mq4</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="data, state: ${searchDto.getResult()}">
+				<td class="td-cell" th:text="${state.index + 1}"></td>
+				<td class="td-cell" th:text="${data.time}"></td>
+				<td class="td-cell" th:text="${data.temperature}"></td>
+				<td class="td-cell" th:text="${data.humidity}"></td>
+				<td class="td-cell" th:text="${data.mq3}"></td>
+                <td class="td-cell" th:text="${data.mq4}"></td>
+			</tr>
+			</tbody>
+		</table>
+
+		<div class="pagination">
+			<p style="display: none" th:text="${searchDto.pageIndex}" id="pageIndex"></p>
+			<p style="display: none" th:text="${searchDto.totalPages}" id="totalPages"></p>
+			<ul class="ptrang jc-giua" id="pagination">
+				<script>
+					var ulElement = document.querySelector("#pagination");
+					var resultArr = ['1'];
+					var resultStr = ''
+					var currentPage = document.querySelector("#pageIndex").innerHTML
+					var maxPage = document.querySelector("#totalPages").innerHTML
+
+					if(currentPage - 1 > 2)
+						resultArr.push('...')
+
+					for(var i = 2; i < maxPage; i++){
+						if(Math.abs(i - currentPage) < 2 && Math.abs(i - currentPage) >= 0)
+							resultArr.push(i+'')
+					}
+
+					console.log(currentPage)
+
+					if(maxPage - currentPage > 2)
+						resultArr.push('...')
+					if(maxPage > 1)
+						resultArr.push(maxPage+'')
+
+					const url = new URL(window.location.href);
+					let temperature = url.searchParams.get('temperature-value')
+					if(temperature == null)
+						temperature = ''
+
+					let humidity = url.searchParams.get('humidity-value')
+					if(humidity == null)
+						humidity = ''
+
+					let mq3 = url.searchParams.get('mq3-value')
+					if(mq3 == null)
+						mq3 = ''
+
+					let mq4 = url.searchParams.get('mq4-value')
+					if(mq4 == null)
+						mq4 = ''
+					let startDate = url.searchParams.get('start-date')
+					if(startDate == null)
+						startDate = ''
+
+					let endDate = url.searchParams.get('end-date')
+					if(endDate == null)
+						endDate = ''
+
+					let params = `&temperature-value=${temperature}&humidity-value=${humidity}&mq3-value=${mq3}&mq4-value=${mq4}&start-date=${startDate}&end-date=${endDate}`
+					console.log(params)
+
+
+					resultArr.forEach( (e) => {
+						let isThis = ""
+						if(e == currentPage)
+							isThis = 'style="background-color: red"'
+						resultStr += '<li ' + isThis + ' class="page-item active">' + '<a class="page-link so-page" href="' + "/all-data?page=" + e + params + '">' + e + '</a>' + '</li>'
+					})
+					ulElement.innerHTML = resultStr
+
+					// document.querySelectorAll('.page-item')[currentPage].style.backdropColor = 'yellow'
+				</script>
+			</ul>
+		</div>
+
+	</div>
+
+
+	<!--END INNERBLOCK-->
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/temperature.js"></script>
+<script src="/js/profile.js"></script>
+<script src="/js/searchdata.js"></script>
+
+
+</body>
+</html>

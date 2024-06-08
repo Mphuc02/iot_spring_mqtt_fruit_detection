@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>Kiểm soát cất lượng hoa quả</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/loading_dot.css">
+    <link rel="stylesheet" href="/icon/themify-icons/themify-icons.css">
+</head>
+<body>
+<div id="main">
+    <!--BEGIN SIDEBAR-->
+    <div class="sidebar">
+        <div class="logo">
+            <p>Kiểm soát chất lượng hoa quả</p>
+        </div>
+        <div class="line"></div>
+        <div class="sidebar-menu">
+            <ul>
+                <li class="sidebar-element menu trangchu">
+                    <a href="/">
+                        <p class="menu">Trang Chủ</p>
+                    </a>
+                </li>
+
+                <li class="sidebar-element">
+                    <a href="/camera">
+                        <p class="menu">Đánh giá thông qua hình ảnh</p>
+                    </a>
+                </li>
+
+                <li class="sidebar-element">
+                    <a href="/all-data">
+                        <p class="menu">Tất Cả Dữ Liệu</p>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!--END SIDEBAR-->
+
+    <!--BEGIN HEADER-->
+    <div class="header">
+        <div class="header-menu">
+            <i class="ti-menu"></i>
+        </div>
+
+        <!-- </div> -->
+    </div>
+    <!--END HEADER-->
+
+    <!--BEGIN INNERBLOCK-->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <h4>Trang Chủ</h4>
+        </div>
+
+        <div class="thongtin">
+            <div class="thongtin1">
+                <div class="thongso">
+                    <div id="temperatureBackground" class="temperature">
+                        <div class="nhietdo">Nhiệt độ:</div>
+                        <div class="temperature-container">
+                            <span id="temperature-result" class="temperature-value">Loading</span>
+                        </div>
+                        <img src="/img/celsius.png">
+                    </div>
+
+                    <div id="humidity-background" class="humidity">
+                        <div class="doam">Độ Ẩm:</div>
+                        <div class="humidity-container">
+                            <span id="doam-result" class="humidity-value">Loading</span>
+                        </div>
+                        <img src="/img/humidity.png">
+                    </div>
+
+                </div>
+
+
+
+                <!-- themm -->
+                <div class="thongso">
+                    <div id="doconBackground" style="width: 45%;" class="temperature">
+<!--                        <div class="nhietdo">Nồng độ cồn:</div>-->
+                        <div class="docon">Nồng độ cồn:</div>
+                        <div class="docon-container">
+                            <span id="docon-result" class="temperature-value">Loading</span>
+                        </div>
+                        <img src="/img/nong_do_con.png">
+                    </div>
+
+                    <div id="khigas-background" style="width: 45%; display: flex; align-items: center" class="humidity">
+                        <div class="khigas">Khí gas:</div>
+                        <div class="khigas-container">
+                            <span id="khigas-result" class="humidity-value">Loading</span>
+                        </div>
+                        <img style="display: block; width: 60px" src="/img/khi_ga.png">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="thongbao">
+                <div id="thongbao-background" class="thongbao1">
+                    <div class="nhietdodoam1">Điều kiện lý tưởng để bảo quản trái cây</div>
+                    <div class="nhietdodoam2">+ Nhiệt độ lý tưởng  từ -1,5 - 14 độ C</div>
+                    <div class="nhietdodoam2">+ Độ ẩm lý tưởng dao động từ 85 – 95%</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="content-container">
+            <div class="chart-container">
+                <canvas id="graph"></canvas>
+            </div>
+        </div>
+
+        <div class="content-container">
+            <div class="chart-container">
+                <canvas id="graph2"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+
+        <!--END INNERBLOCK-->
+    </div>
+    <script src="/js/mq4.js"></script>
+    <script src="/js/mq3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="/js/loading_dot.js"></script>
+    <script src="/js/chart.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/js/led.js"></script>
+    <script src="/js/humidity.js"></script>
+    <script src="/js/graph.js"></script>
+    <script src="/js/temperature.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/profile.js"></script>
+</body>
+</html>
